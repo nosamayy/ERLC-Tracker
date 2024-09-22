@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERLC Visit Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        #visit-counter {
+            font-size: 48px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>ERLC Visit Tracker</h1>
+    <p>Total Visits:</p>
+    <div id="visit-counter">Loading...</div>
 
+    <script>
+        const universeId = 'YOUR_ERLC_UNIVERSE_ID';  // Replace with ERLC's universe ID
+
+        async function fetchVisits() {
+            const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+            const data = await response.json();
+            const visits = data.data[0].visits;
+            document.getElementById('visit-counter').textContent = visits.toLocaleString();
+        }
+
+        // Fetch the visits initially and then every 2 seconds
+        fetchVisits();
+        setInterval(fetchVisits, 2000);
+    </script>
+</body>
+</html>

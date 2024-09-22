@@ -33,12 +33,16 @@
         const result = await response.json();
         const data = JSON.parse(result.contents); // Parse the contents
 
-        console.log(data); // Log the data to see its structure
+        console.log(data); // Log the full data structure
 
         // Check if data is an array and has at least one item
-        if (Array.isArray(data) && data.length > 0) {
-            const visits = data[0].visits; // Access visits correctly
-            document.getElementById('visit-counter').textContent = visits.toLocaleString();
+        if (data && Array.isArray(data) && data.length > 0) {
+            if (data[0].visits !== undefined) { // Check if visits property exists
+                const visits = data[0].visits; // Access visits correctly
+                document.getElementById('visit-counter').textContent = visits.toLocaleString();
+            } else {
+                throw new Error('Visits property is undefined');
+            }
         } else {
             throw new Error('No data available');
         }
@@ -47,6 +51,7 @@
         document.getElementById('visit-counter').textContent = 'Failed to load visits';
     }
 }
+
 
 
         // Fetch the visits initially and then every 2 seconds

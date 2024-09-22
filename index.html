@@ -29,7 +29,7 @@
 
         async function fetchVisits() {
             try {
-                fetch('https://cors-anywhere.herokuapp.com/https://games.roblox.com/v1/games?universeIds=903807016')
+                const response = await fetch('https://api.allorigins.win/get?url=https://games.roblox.com/v1/games?universeIds=903807016');
                 const data = await response.json();
                 const visits = data.data[0].visits;
                 document.getElementById('visit-counter').textContent = visits.toLocaleString();

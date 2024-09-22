@@ -42,7 +42,8 @@
                     const visits = visitsData.data[0].visits; // Access visits correctly
                     document.getElementById('visit-counter').textContent = visits.toLocaleString();
                 } else {
-                    throw new Error('No data available');
+                    console.warn('No data available, retrying fetch...');
+                    setTimeout(fetchVisits, 2000); // Retry after 2 seconds
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);

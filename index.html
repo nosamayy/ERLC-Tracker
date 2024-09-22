@@ -32,13 +32,22 @@
         const response = await fetch('https://api.allorigins.win/get?url=https://games.roblox.com/v1/games?universeIds=' + universeId);
         const result = await response.json();
         const data = JSON.parse(result.contents); // Parse the contents
-        const visits = data[0].visits; // Access visits correctly
-        document.getElementById('visit-counter').textContent = visits.toLocaleString();
+
+        console.log(data); // Log the data to see its structure
+
+        // Check if data is an array and has at least one item
+        if (Array.isArray(data) && data.length > 0) {
+            const visits = data[0].visits; // Access visits correctly
+            document.getElementById('visit-counter').textContent = visits.toLocaleString();
+        } else {
+            throw new Error('No data available');
+        }
     } catch (error) {
         console.error('Error fetching data:', error);
         document.getElementById('visit-counter').textContent = 'Failed to load visits';
     }
 }
+
 
         // Fetch the visits initially and then every 2 seconds
         fetchVisits();

@@ -35,14 +35,10 @@
 
         console.log(data); // Log the full data structure
 
-        // Check if data is an array and has at least one item
-        if (data && Array.isArray(data) && data.length > 0) {
-            if (data[0].visits !== undefined) { // Check if visits property exists
-                const visits = data[0].visits; // Access visits correctly
-                document.getElementById('visit-counter').textContent = visits.toLocaleString();
-            } else {
-                throw new Error('Visits property is undefined');
-            }
+        // Check if the data object and its array property exist
+        if (data && data.data && Array.isArray(data.data) && data.data.length > 0) {
+            const visits = data.data[0].visits; // Access visits correctly
+            document.getElementById('visit-counter').textContent = visits.toLocaleString();
         } else {
             throw new Error('No data available');
         }
@@ -51,6 +47,7 @@
         document.getElementById('visit-counter').textContent = 'Failed to load visits';
     }
 }
+
 
 
 

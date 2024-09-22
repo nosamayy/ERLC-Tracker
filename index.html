@@ -25,16 +25,21 @@
     <div id="visit-counter">Loading...</div>
 
     <script>
-        const universeId = '903807016';
-        
+        const universeId = '903807016';  // Replace with ERLC's universe ID
+
         async function fetchVisits() {
-            const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
-            const data = await response.json();
-            const visits = data.data[0].visits;
-            document.getElementById('visit-counter').textContent = visits.toLocaleString();
+            try {
+                const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+                const data = await response.json();
+                const visits = data.data[0].visits;
+                document.getElementById('visit-counter').textContent = visits.toLocaleString();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('visit-counter').textContent = 'Failed to load visits';
+            }
         }
 
-        
+        // Fetch the visits initially and then every 2 seconds
         fetchVisits();
         setInterval(fetchVisits, 2000);
     </script>
